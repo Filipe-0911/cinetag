@@ -1,13 +1,33 @@
 import Banner from "componentes/Banner";
-import Cabecalho from "componentes/Cabecalho";
-import Rodape from "componentes/Rodape";
+import Card from "componentes/Card";
+import Titulo from "componentes/Titulo";
+import styles from "./Inicio.module.css"
+import videos from "../../json/db.json"
 
 export default function Inicio() {
     return (
         <>
-            <Cabecalho/>
+            
             <Banner imagem="home" />
-            <Rodape />
+            <Titulo>
+                <h1>
+                    Um lugar para guardar seus filmes e vídeos!
+                </h1>
+            </Titulo>
+            <section className={styles.container}>
+                {
+                    videos.map((video, index) => {
+                        return (
+                            <Card
+                                {...video}
+                                key={index}
+                            />
+                        )
+                    })
+                }
+
+            </section>
+            
         </>
     );
 }
