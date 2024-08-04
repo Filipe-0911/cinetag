@@ -1,12 +1,13 @@
 import styles from "./Card.module.css";
 import iconeFavoritar from "./favoritar.png";
 import iconeDesfavoritar from "./desfavoritar.png";
-import videos from "../../json/db.json"
-import { useFavoritoContext } from "Contextos/Favoritos";
+import { useFavoritoContext } from "Hooks/useFavoritoContext";
 import { Link } from "react-router-dom";
+import useVideoContext from "Hooks/useVideoContext";
 
 export default function Card({ id, titulo, capa }) {
     const { favorito, adicionarFavorito } = useFavoritoContext();
+    const { videos } = useVideoContext();
 
     const buscaFavoritoPorId = (id) => {
         return videos.find(v => v.id === id);

@@ -2,14 +2,24 @@ import Banner from "componentes/Banner";
 import styles from "./Player.module.css";
 import Titulo from "componentes/Titulo";
 import { useParams } from "react-router-dom";
-import videos from "json/db.json"
 import NaoEncontrada from "pages/NaoEncontrada";
+import { useEffect, useState } from "react";
+import useVideoContext from "Hooks/useVideoContext";
 
 export default function Player() {
+    const [ videoEspecifico, setVideoEspecifico ] = useState()
     const parametros = useParams();
-    const video = videos.find(video => video.id === +parametros.id);
+    const [isLoading, setIsLoading] = useState(true);
+    const { buscarVideoPorId } = useVideoContext();
 
-    if (!video) {
+    useEffect(() => {
+        const videoEncontrado = buscarVideoPorId(+parametros.id)
+        setVideoEspecifico(videoEncontrado)
+        setIsLoading(false);
+
+    }, [parametros.id, buscarVideoPorId]);
+
+    if (!videoEspecifico) {
         return (
             <NaoEncontrada />
         )
@@ -22,16 +32,18 @@ export default function Player() {
                 <h1>Player</h1>
             </Titulo>
             <section className={styles.container}>
+                {!isLoading &&
                 <iframe
                     height="100%"
                     width="100%"
-                    src={`${video.link}`}
-                    title={`${video.titulo}`}
+                    src={`${videoEspecifico.link}`}
+                    title={`${videoEspecifico.titulo}`}
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                     referrerPolicy="strict-origin-when-cross-origin"
                     allowFullScreen>
 
                 </iframe>
+                }
             </section>
         </>
     );

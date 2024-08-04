@@ -2,7 +2,7 @@ import Banner from "componentes/Banner";
 import styles from "./Favoritos.module.css";
 import Titulo from "componentes/Titulo";
 import Card from "componentes/Card";
-import { useFavoritoContext } from "Contextos/Favoritos";
+import { useFavoritoContext } from "Hooks/useFavoritoContext";
 
 export default function Favoritos() {
     const { favorito } = useFavoritoContext();
