@@ -6,8 +6,7 @@ import videos from "../../json/db.json"
 
 export default function Inicio() {
     return (
-        <>
-            
+        <> 
             <Banner imagem="home" />
             <Titulo>
                 <h1>
